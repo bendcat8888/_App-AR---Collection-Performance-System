@@ -6,3 +6,4 @@ login_logs.txt
 sr_code2_debug.log
 __pycache__/
 .venv/
+*.CSV
