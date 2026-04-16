@@ -1,91 +1,61 @@
-# AR & Collection Performance System
+# 📊 AR & Collection Performance System
+**Enterprise-Grade Financial Analytics & Accounts Receivable Management Solution**
 
-A Streamlit-based reporting application for AR and Collection monitoring. It generates multiple operational views from SQL Server stored procedures, supports interactive adjustments (where applicable), and provides downloads for analysis and manual checking.
+[![Python 3.12](https://img.shields.io/badge/Python-3.12-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white)](https://streamlit.io/)
+[![SQL Server](https://img.shields.io/badge/SQL%20Server-CC2927?style=for-the-badge&logo=microsoft-sql-server&logoColor=white)](https://www.microsoft.com/en-us/sql-server)
 
-## Key Features
+## 🛠 Tech Stack
 
-### Authentication & Access
-- LDAP/Active Directory login (NTLM) with access-level detection (e.g., Manager/User based on group membership).
-- Built-in lockout protection after repeated failed attempts (configurable in code).
+| Category | Tools |
+| :--- | :--- |
+| **Language** | Python 3.12 (Advanced Type Hinting & Caching) |
+| **Frontend** | Streamlit (Custom CSS & Multi-tab Architecture) |
+| **Database** | MS SQL Server (via SQLAlchemy & ODBC 18) |
+| **Auth** | LDAP3 (Active Directory / NTLM) |
+| **Analysis** | Pandas, NumPy, python-dateutil |
+| **Visuals** | Plotly Interactive Graphics |
 
-### AR & Collection Reporting (AR Related)
-- AR-related collection dashboard with multi-tab layout.
-- “Summarize Collection” view for month-level collection output.
-- “Row-Detailed Collection” view for detailed transaction-level collection output.
+---
 
-### Sales-Related Reporting
-- Sales-related collection reporting and financial overview tiles (paid/unpaid, overdue counts, max exposures).
-- Multiple sales-related analytical tabs (summary, incentives-related views, overdue summaries, rebates summaries).
+## 🎯 Executive Summary
+A sophisticated **Collection Performance System** designed for the pharmaceutical industry (InnoGen). This application bridges the gap between raw SQL Server financial data and executive decision-making. It automates complex AR aging calculations, manages LDAP-secured access, and allows non-technical users to update business logic (CO/COD conditions) directly through a high-performance Streamlit UI.
 
-### Target / Aging / Overdue Analysis
-- Aging bucket computation and “Collection Performance” view (Current / 1–30 / 31–60 / 61–90 / 91+ plus totals).
-- Overdue reporting with filtering and downloadable outputs.
+---
 
-### Add-Days (Due Date Adjustment) Tools
-- “AR with Add Days” modal view for reviewing due-date adjustments.
-- Uses default Add-Days mapping from the database plus UI-driven overrides.
-- Supports maintaining a list of customer names with custom add-days and applying them to the dataset logic used for aging.
+## 🚀 Key Modules & Professional Capabilities
 
-### Customizable Conditions (No Code Changes Needed)
-- Condition sets are user-maintainable and can be edited through the app UI:
-  - CO conditions
-  - COD conditions
-- These condition sets drive category/assignment behavior inside the application (e.g., target categorization, DSS2/category mapping, and related rule-based labeling), allowing business-rule updates without modifying Python source code.
+### 🔐 Enterprise Security & Identity
+* **Active Directory Integration:** Implemented secure **LDAP/NTLM authentication** using `ldap3`, featuring role-based access control (RBAC) for Managers vs. Users.
+* **Brute-Force Protection:** Built-in lockout mechanisms and secure session handling to meet corporate security audit requirements.
 
-### Re-Tagging & History
-- Re-tagging module for updating assigned labels (e.g., SR2 / DSS-related fields) from the UI.
-- History tracking and replay:
-  - View, edit, and delete re-tag history entries.
-  - Apply saved history to the current dataset to enforce consistent tagging across runs.
+### 📈 Advanced Financial Analytics
+* **Dynamic AR Aging:** Real-time computation of aging buckets (Current, 1–30, 31–60, 61–90, 91+).
+* **Predictive Collection Tools:** "Add-Days" simulation module allowing users to review and override due-date adjustments based on custom customer-mapping logic.
+* **Sales Performance Tiles:** High-level financial KPIs including max exposure, overdue counts, and incentive-related summaries.
 
-### Data Export
-- One-click CSV downloads across major tables/views.
-- Excel download support where available (with fallback behavior when Excel writer is missing).
-- Designed to safely display tables in Streamlit (including date/datetime handling for dataframe rendering).
+### ⚙️ No-Code Business Logic Management
+* **Dynamic Condition Sets:** Empowered business users to modify **CO/COD conditions** and **SR2/DSS re-tagging** via the UI.
+* **Logic Persistence:** Changes are written back to the database or history logs, allowing rule-based labeling to evolve without modifying the Python source code.
 
-## Tech Stack
-- Python
-- Streamlit
-- Pandas / NumPy
-- SQLAlchemy + pyodbc (SQL Server)
-- ldap3 (LDAP/AD authentication)
-- Plotly (charts/visuals)
+### 🛠 Data Engineering & Reliability
+* **SQL Optimization:** Leveraged `SQLAlchemy` and `pyodbc` to interface with complex Stored Procedures, ensuring minimal memory overhead and fast retrieval.
+* **Audit Trails:** Re-tagging history module allows for "replay" functionality, ensuring data consistency across multiple reporting cycles.
+* **Robust Exports:** Multi-format support (CSV/Excel) with specialized date-time handling for clean data ingestion into ERP systems.
 
-## Requirements
-- Python 3.10+ recommended
-- SQL Server ODBC driver installed:
-  - ODBC Driver 18 for SQL Server
+---
 
-Install dependencies (example):
+## ⚙️ Requirements & Installation
+
+- **Python:** 3.10+ recommended
+- **Driver:** [ODBC Driver 18 for SQL Server](https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server)
+
+### Quick Start
 ```bash
+# Install dependencies
 pip install streamlit pandas sqlalchemy pyodbc ldap3 python-dateutil plotly openpyxl xlsxwriter
-```
 
-## Secure Configuration (For GitHub)
-
-This project is intended to be published without exposing credentials.
-
-### Database Connection (Secrets / Environment)
-The application reads DB connection settings from Streamlit Secrets (preferred) or environment variables (fallback). Do not hardcode credentials in the repository.
-
-Recommended: create a local `.streamlit/secrets.toml` (ignored by git) and define the DB fields there.
-
-Environment variable fallback:
-- DB_HOST
-- DB_USER
-- DB_PASSWORD
-- DB_DATABASE
-- DB_DRIVER (optional)
-- DB_TRUST_SERVER_CERTIFICATE (optional)
-
-### Git Ignore
-Keep secret/config files out of Git history. This repo is configured to ignore:
-- `.streamlit/secrets.toml`
-- `.env` files
-- common log outputs and caches
-
-## Run
-```bash
+# Launch the application
 streamlit run Direct_Sales_Collection_Report_Streamlit.py
 ```
 
