@@ -71,7 +71,7 @@ Recommended local setup: `.streamlit/secrets.toml` (Excluded from Git).
 - Report outputs rely on SQL stored procedures; ensure the expected stored procedures and permissions exist in the target database.
 - For best results, confirm the correct SQL Server ODBC driver is installed and accessible to Python/pyodbc.
 
-## License
+## 📜License & Intellectual Property
 
 ### Copyright (c) 2026 Benedic Cater / InnoGen Pharmaceuticals Inc.
 
