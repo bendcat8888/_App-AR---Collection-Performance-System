@@ -58,6 +58,13 @@ pip install streamlit pandas sqlalchemy pyodbc ldap3 python-dateutil plotly open
 # Launch the application
 streamlit run Direct_Sales_Collection_Report_Streamlit.py
 ```
+## 🔒 Security & Configuration
+This project follows Zero-Trust principles. No credentials or secrets are stored in the source code.
+
+**Database Connection**
+The application reads settings from **Streamlit Secrets** or Environment Variables.
+Recommended local setup: `.streamlit/secrets.toml` (Excluded from Git).
+
 
 ## Operational Notes
 - Some modules depend on internal network resources (SQL Server and LDAP). Running outside the intended environment may require updating network endpoints and identity settings.
