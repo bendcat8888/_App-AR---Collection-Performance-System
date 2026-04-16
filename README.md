@@ -65,3 +65,13 @@ streamlit run Direct_Sales_Collection_Report_Streamlit.py
 ## Notes
 - The app uses SQL stored procedures for report generation.
 - Some features depend on internal network resources (SQL/LDAP), so they may not run outside your environment.
+
+## License
+
+Copyright (c) 2026 InnoGen Pharmaceuticals Inc. All rights reserved.
+
+Author/Maintainer: Benedic Cater
+
+This software is proprietary and confidential. No part of this repository may be copied, modified, published, distributed, or used to create derivative works without prior written permission from InnoGen Pharmaceuticals Inc.
+
+For internal use only.
