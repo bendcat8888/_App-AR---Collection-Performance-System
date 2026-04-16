@@ -1,70 +1,98 @@
 # AR & Collection Performance System
 
-Streamlit application for generating AR/Collection reports with SQL Server data, including:
-- AR-related collection summary and row-detailed reports
-- Sales-related collection views
-- Target and overdue analysis
-- CSV/Excel export options
-- LDAP-based login/authentication
+A Streamlit-based reporting application for AR and Collection monitoring. It generates multiple operational views from SQL Server stored procedures, supports interactive adjustments (where applicable), and provides downloads for analysis and manual checking.
+
+## Key Features
+
+### Authentication & Access
+- LDAP/Active Directory login (NTLM) with access-level detection (e.g., Manager/User based on group membership).
+- Built-in lockout protection after repeated failed attempts (configurable in code).
+
+### AR & Collection Reporting (AR Related)
+- AR-related collection dashboard with multi-tab layout.
+- “Summarize Collection” view for month-level collection output.
+- “Row-Detailed Collection” view for detailed transaction-level collection output.
+
+### Sales-Related Reporting
+- Sales-related collection reporting and financial overview tiles (paid/unpaid, overdue counts, max exposures).
+- Multiple sales-related analytical tabs (summary, incentives-related views, overdue summaries, rebates summaries).
+
+### Target / Aging / Overdue Analysis
+- Aging bucket computation and “Collection Performance” view (Current / 1–30 / 31–60 / 61–90 / 91+ plus totals).
+- Overdue reporting with filtering and downloadable outputs.
+
+### Add-Days (Due Date Adjustment) Tools
+- “AR with Add Days” modal view for reviewing due-date adjustments.
+- Uses default Add-Days mapping from the database plus UI-driven overrides.
+- Supports maintaining a list of customer names with custom add-days and applying them to the dataset logic used for aging.
+
+### Customizable Conditions (No Code Changes Needed)
+- Condition sets are user-maintainable and can be edited through the app UI:
+  - CO conditions
+  - COD conditions
+- These condition sets drive category/assignment behavior inside the application (e.g., target categorization, DSS2/category mapping, and related rule-based labeling), allowing business-rule updates without modifying Python source code.
+
+### Re-Tagging & History
+- Re-tagging module for updating assigned labels (e.g., SR2 / DSS-related fields) from the UI.
+- History tracking and replay:
+  - View, edit, and delete re-tag history entries.
+  - Apply saved history to the current dataset to enforce consistent tagging across runs.
+
+### Data Export
+- One-click CSV downloads across major tables/views.
+- Excel download support where available (with fallback behavior when Excel writer is missing).
+- Designed to safely display tables in Streamlit (including date/datetime handling for dataframe rendering).
 
 ## Tech Stack
-- Python 3.10+
+- Python
 - Streamlit
-- Pandas
-- SQLAlchemy
-- pyodbc (SQL Server driver)
-- ldap3
+- Pandas / NumPy
+- SQLAlchemy + pyodbc (SQL Server)
+- ldap3 (LDAP/AD authentication)
+- Plotly (charts/visuals)
 
-## Project Structure
-- `Direct_Sales_Collection_Report_Streamlit.py` — main Streamlit app
-- `.streamlit/secrets.toml` — local secrets file (ignored by git)
-- `.gitignore` — excludes secrets/logs/cache/venv from repository
+## Requirements
+- Python 3.10+ recommended
+- SQL Server ODBC driver installed:
+  - ODBC Driver 18 for SQL Server
 
-## Prerequisites
-1. Install Python dependencies:
-   ```bash
-   pip install streamlit pandas sqlalchemy pyodbc ldap3 python-dateutil plotly openpyxl xlsxwriter
-   ```
-2. Install **ODBC Driver 18 for SQL Server** on your machine.
-3. Ensure network access to your SQL Server and LDAP server.
-
-## Secure Configuration (Required)
-
-Create a local file: `.streamlit/secrets.toml`
-
-```toml
-[db]
-host = "YOUR_SQL_HOST\\INSTANCE"
-user = "YOUR_SQL_USER"
-password = "YOUR_SQL_PASSWORD"
-database = "RXTracking"
-driver = "ODBC Driver 18 for SQL Server"
-trust_server_certificate = "yes"
+Install dependencies (example):
+```bash
+pip install streamlit pandas sqlalchemy pyodbc ldap3 python-dateutil plotly openpyxl xlsxwriter
 ```
 
-### Optional Environment Variable Fallback
-If `secrets.toml` is not used, the app can read:
-- `DB_HOST`
-- `DB_USER`
-- `DB_PASSWORD`
-- `DB_DATABASE`
-- `DB_DRIVER`
-- `DB_TRUST_SERVER_CERTIFICATE`
+## Secure Configuration (For GitHub)
 
-## Run the App
+This project is intended to be published without exposing credentials.
+
+### Database Connection (Secrets / Environment)
+The application reads DB connection settings from Streamlit Secrets (preferred) or environment variables (fallback). Do not hardcode credentials in the repository.
+
+Recommended: create a local `.streamlit/secrets.toml` (ignored by git) and define the DB fields there.
+
+Environment variable fallback:
+- DB_HOST
+- DB_USER
+- DB_PASSWORD
+- DB_DATABASE
+- DB_DRIVER (optional)
+- DB_TRUST_SERVER_CERTIFICATE (optional)
+
+### Git Ignore
+Keep secret/config files out of Git history. This repo is configured to ignore:
+- `.streamlit/secrets.toml`
+- `.env` files
+- common log outputs and caches
+
+## Run
 ```bash
 streamlit run Direct_Sales_Collection_Report_Streamlit.py
 ```
 
-## GitHub Safety Checklist
-- Never commit `.streamlit/secrets.toml`
-- Rotate credentials before/after publishing if previously exposed
-- Keep `.gitignore` intact
-- Avoid hardcoding credentials in source code
-
-## Notes
-- The app uses SQL stored procedures for report generation.
-- Some features depend on internal network resources (SQL/LDAP), so they may not run outside your environment.
+## Operational Notes
+- Some modules depend on internal network resources (SQL Server and LDAP). Running outside the intended environment may require updating network endpoints and identity settings.
+- Report outputs rely on SQL stored procedures; ensure the expected stored procedures and permissions exist in the target database.
+- For best results, confirm the correct SQL Server ODBC driver is installed and accessible to Python/pyodbc.
 
 ## License
 
