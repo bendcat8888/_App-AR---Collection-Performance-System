@@ -71,17 +71,17 @@ Recommended local setup: `.streamlit/secrets.toml` (Excluded from Git).
 - Report outputs rely on SQL stored procedures; ensure the expected stored procedures and permissions exist in the target database.
 - For best results, confirm the correct SQL Server ODBC driver is installed and accessible to Python/pyodbc.
 
-## 📜License & Intellectual Property
+---
 
-### Copyright (c) 2026 Benedic Cater / InnoGen Pharmaceuticals Inc.
+## 📜 License & Intellectual Property
+**Copyright (c) 2026 Benedic Cater / InnoGen Pharmaceuticals Inc. (Solvang)**
 
-### All Rights Reserved.
+**All Rights Reserved.**
+This repository is published for **portfolio review and technical demonstration purposes only.**
 
-This repository and its contents, including all code, assets, and data, are the sole property of the author. This code is made public for portfolio review and demonstration purposes only.
+**Strict Restrictions:**
+- **No Reproduction:** No part of this code may be copied, modified, or distributed.
+- **Brand Protection:** Use of the "InnoGen" or "Solvang" name, branding, or logos is strictly prohibited.
+- **Data Privacy:** Use of any proprietary data or business logic contained herein for commercial or personal projects is strictly prohibited.
 
-### Restrictions:
-- You may not copy, modify, or distribute this code.
-- You may not use the "InnoGen" name, branding, or logos for any purpose.
-- Use of the data contained within this repository for commercial or personal projects is strictly prohibited.
-
-For inquiries or permission requests, please contact the author.
+_For professional inquiries or permission requests, please contact Benedic Cater._
